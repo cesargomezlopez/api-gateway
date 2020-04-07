@@ -32,6 +32,11 @@ public class BeanConfig {
                             .setFallbackUri("forward:/fallback/message")))
                     .uri("lb://MS-CREDIT-ACCOUNT/")
                     .id("ms-credit-account"))
+            .route(r -> r.path("/bank/**")
+                    .filters(f -> f.hystrix(c -> c.setName("bank")
+                            .setFallbackUri("forward:/fallback/message")))
+                    .uri("lb://BANK/")
+                    .id("ms-bank"))
             .build();
   }
 
